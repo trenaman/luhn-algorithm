@@ -1,3 +1,4 @@
+
 package luhn
 
 class LuhnAlgorithm {
@@ -36,11 +37,13 @@ class LuhnAlgorithm {
   // Double every odd element in the sequence and sum the digits of the doubling, as per the Luhn algorithm
   //
   private def luhnTransform(seq: Seq[Int]): Seq[Int] = {
-    seq.zipWithIndex.map { case (d, index) =>
-      if (index % 2 == 0)
-        sumDigits(d * 2)
-      else
-        d
+    lazy val oddElements: Stream[Boolean] = true #:: oddElements.map(b => !b)
+
+    seq.zip(oddElements).map { case (d, isOddElement) =>
+        if (isOddElement)
+          sumDigits(d * 2)
+        else
+          d
     }
   }
 
@@ -62,6 +65,7 @@ class LuhnAlgorithm {
       InputContainsNonDigitsErrorMessage
     )
   }
+
 }
 
 object LuhnAlgorithm {
