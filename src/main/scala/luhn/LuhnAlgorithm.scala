@@ -38,15 +38,17 @@ class LuhnAlgorithm {
   private def luhnTransform(seq: Seq[Int]): Seq[Int] = {
     seq.zipWithIndex.map { case (d, index) =>
       if (index % 2 == 0)
-        d * 2
+        sumDigits(d * 2)
       else
         d
-    }.map { d =>
-      if (d < 10)
-        d
-      else
-        1 + (d % 10)
     }
+  }
+
+  private def sumDigits(d: Int): Int = {
+    if (d < 10)
+      d
+    else
+      1 + (d % 10)
   }
 
   private def digitToInt(c: Char): Int = c.toInt - '0'.toInt
