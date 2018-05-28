@@ -1,9 +1,9 @@
 
 package luhn
 
-class LuhnAlgorithm {
-
-  import LuhnAlgorithm._
+object LuhnAlgorithm {
+  val InputIsEmptyErrorMessage = "Input cannot be an empty sequence."
+  val InputContainsNonDigitsErrorMessage = "All digits must between 0 and 9"
 
   // For a given sequence of digits, return a check digit as per Luhn algorithm.
   //
@@ -40,10 +40,10 @@ class LuhnAlgorithm {
     lazy val oddElements: Stream[Boolean] = true #:: oddElements.map(b => !b)
 
     seq.zip(oddElements).map { case (d, isOddElement) =>
-        if (isOddElement)
-          sumDigits(d * 2)
-        else
-          d
+      if (isOddElement)
+        sumDigits(d * 2)
+      else
+        d
     }
   }
 
@@ -67,9 +67,3 @@ class LuhnAlgorithm {
   }
 
 }
-
-object LuhnAlgorithm {
-  val InputIsEmptyErrorMessage = "Input cannot be an empty sequence."
-  val InputContainsNonDigitsErrorMessage = "All digits must between 0 and 9"
-}
-
